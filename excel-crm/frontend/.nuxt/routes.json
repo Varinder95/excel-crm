@@ -1,0 +1,23 @@
+[
+  {
+    "name": "Dashboard",
+    "path": "/Dashboard",
+    "component": "/home/sunny/projects/frontend/pages/Dashboard.vue",
+    "chunkName": "pages/Dashboard",
+    "_name": "_63335aca"
+  },
+  {
+    "name": "Dashboard-old",
+    "path": "/Dashboard-old",
+    "component": "/home/sunny/projects/frontend/pages/Dashboard-old.vue",
+    "chunkName": "pages/Dashboard-old",
+    "_name": "_b0d5d0b8"
+  },
+  {
+    "name": "index",
+    "path": "/",
+    "component": "/home/sunny/projects/frontend/pages/index.vue",
+    "chunkName": "pages/index",
+    "_name": "_61dca928"
+  }
+]

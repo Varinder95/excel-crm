@@ -1,0 +1,21 @@
+services:
+  server:
+    build: ./server
+    container_name: gql-server
+    ports:
+      - 4000:4000
+
+  frontend:
+    build: ./frontend
+    container_name: frontend
+    ports:
+      - 3000:3000
+    links:
+      - server
+
+  uploader:
+    build: ./file-uploader
+    container_name: uploader
+    ports:
+      - 8000:8000
+      - 8001:8001
