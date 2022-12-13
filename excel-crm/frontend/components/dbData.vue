@@ -1,16 +1,37 @@
 <template>
-  <div class="overflow-auto">
+  <div>
     <div class="d-flex mx-4">
       <h2 class="text-wrap"> Business Listing</h2>
     </div>
-    <b-pagination
+    <b-pagination responsive
       v-model="currentPage"
       :total-rows="rows"
       :per-page="perPage"
       aria-controls="my-table"
     ></b-pagination>
-    <p class="mt-3">Current Page: {{ currentPage }}</p>
-    <b-table striped hover :items="getData" :per-page="perPage" :current-page="currentPage"></b-table>
+    <div class="d-flex w-100 justify-content-between p-4">
+      <div class="d-inline-flex w-50 justify-content-center">
+        <p class="mt-3">Current Page: {{ currentPage }}</p>
+      </div>
+      <div class="d-inline-flex w-50 justify-content-center">
+        <div class="d-flex w-75 justify-content-end">
+          <p class="mt-3 mr-4">Select No. Of Rows : </p>
+        </div>
+        <div class="d-block w-25">
+          <select placeholder="No. of Rows" v-model="NoOfRows" class="mt-3" id="RowCount" @change="ChangeNoRows">
+            <option value="10" selected>10</option>
+            <option value="25">25</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <b-table responsive striped hover :fields="fields" :items="getData" :per-page="perPage" :current-page="currentPage">
+      <template #cell(index)="data">
+        {{ data.index + 1 }}
+      </template>
+    </b-table>
   </div>
 </template>
   
@@ -21,7 +42,6 @@ const getData = gql`
   
 query GetData {
   getData {
-    _id
     Business
     Address_1
     Address_2
@@ -40,6 +60,9 @@ query GetData {
     MPAN
     EAC
     CED
+    UploadName
+    CreatedBy
+    File_Name
   }
 }
 `;
@@ -47,7 +70,34 @@ export default {
   name: 'dbData',
     data() {
       return {
+        fields: [
+          // A virtual column that doesn't exist in items
+          'index', 
+	        'Business',
+          { key: 'Address_1', label: 'Address 1' },
+          { key: 'Address_2', label: 'Address 2' },
+          { key: 'Address_3', label: 'Address 3' },
+          'County',
+          'Region',
+          'Postcode',
+          'Supplier',
+          { key: 'Decision_Maker', label: 'Decision Maker' },
+          { key: 'Telephone_1', label: 'Telephone 1' },
+          { key: 'Telephone_2', label: 'Telephone 2' },
+          'PC',
+          'MTC',
+          'LLF',
+          'MPRN',
+          'MPAN',
+          'EAC',
+          'CED',
+          { key: 'UploadName', label: 'Upload Name' },
+          { key: 'CreatedBy', label: 'Created By' }, 
+          { key: 'File_Name', label: 'File_Name' }, 
+  
+        ],
         getData:'',
+        NoOfRows: '',
         perPage: 10,
         currentPage: 1,
       }
@@ -61,6 +111,9 @@ export default {
     methods:{
       saveTableData() {
         return this.getData
+      },
+      ChangeNoRows() {
+        this.perPage = this.NoOfRows
       }
     },
     mounted() {

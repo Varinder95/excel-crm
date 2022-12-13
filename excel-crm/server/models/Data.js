@@ -19,6 +19,12 @@ const dataSchema = new Schema({
     MPAN: { type: String },
     EAC: { type: String },
     CED: { type: String },
+    UploadName: { type: String },
+    File_Name: { type: String },
+    CreatedBy: { type: String },
+},
+{
+  timestamps: true
 });
 
 module.exports = model('Data', dataSchema);

@@ -1,9 +1,9 @@
 <template>
-    <div class="overflow-auto">
+    <div>
       <div class="d-flex mx-4">
         <h2 class="text-wrap"> User Listing</h2>
       </div>
-      <b-table striped hover :items="getUsers"></b-table>
+      <b-table responsive striped hover :items="getUsers"></b-table>
     </div>
 </template>
   

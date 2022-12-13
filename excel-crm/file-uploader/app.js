@@ -4,6 +4,7 @@ var multer      = require('multer');
 var path        = require('path');  
 const cors = require('cors')
 var dataModel    = require('./models/Data');  
+var uploadModel    = require('./models/Uploads');  
 var excelToJson = require('convert-excel-to-json');
 var bodyParser  = require('body-parser'); 
 const config = require('./config');
@@ -34,12 +35,47 @@ app.use(express.static(path.resolve(__dirname,'public')));
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/index.html');
 });
-// Upload excel file and import to mongodb
+// Upload excel file and 
 app.post('/uploadfile', upload.single("uploadfile"), (req, res) =>{
     const fileData = importExcelData2MongoDB(__dirname + '/public/uploads/' + req.file.filename);
+    const data2 = {File_Name:req.file.filename};
+    for (let i = 0; i < fileData.length; i++) {
+        fileData[i] = Object.assign(fileData[i], data2);
+    }
     const jsonData = JSON.stringify(fileData);
     res.end(jsonData);
 
+});
+//fetch data from the request  
+app.use(bodyParser.json()); 
+// import data to mongodb
+app.post('/uploaddata', (req, res) => {
+    // Insert Json-Object to MongoDB
+    console.log(req.body);
+    const uploadData = req.body;
+    dataModel.insertMany(uploadData.NewData,(err,data)=>{  
+        if(err){
+            res.end('Error in uploading Data');
+            console.log(err);  
+        }else{  
+            const dataLength = data.length;
+            uploadModel.create({ 
+                UploadName: uploadData.UploadName,
+                FileName: uploadData.FileName,
+                NoOfEntries: dataLength,
+                UploadedBy: uploadData.UploadedBy
+            },(err,data)=>{  
+                if(err){
+                    res.end('Error in uploading Data');
+                    console.log(err);  
+                }else{ 
+                    res.end('Successful');
+                    console.log(dataLength);
+                    console.log(data);
+                }
+            });
+        }  
+    }); 
 });
 // Import Excel File to MongoDB database
 function importExcelData2MongoDB(filePath){
@@ -72,28 +108,7 @@ function importExcelData2MongoDB(filePath){
             R: 'CED',
         }
     });
-        // -> Log Excel Data to Console
-    console.log(excelData);
-        /**
-        { 
-        Customers:
-        [ 
-        { _id: 1, name: 'Jack Smith', address: 'Massachusetts', age: 23 },
-        { _id: 2, name: 'Adam Johnson', address: 'New York', age: 27 },
-        { _id: 3, name: 'Katherin Carter', address: 'Washington DC', age: 26 },
-        { _id: 4, name: 'Jack London', address: 'Nevada', age: 33 },
-        { _id: 5, name: 'Jason Bourne', address: 'California', age: 36 } 
-        ] 
-        }
-        */ 
-    // Insert Json-Object to MongoDB
-    dataModel.insertMany(excelData.Sheet1,(err,data)=>{  
-        if(err){  
-            console.log(err);  
-        }else{  
-            console.log(data);
-        }  
-    }); 
+    
     return excelData.Sheet1;
 }
 //assign port  

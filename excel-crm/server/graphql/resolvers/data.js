@@ -4,7 +4,7 @@ const { ApolloError } = require('apollo-server-errors');
 
 module.exports = {
     Mutation: {
-        async saveData(_, {dataInput: { Business ,Address, Supplier, Decision_Maker, Telephone_1, Telephone_2, PC, MTC, LLF, MPRN, MPAN, EAC, CED } }) {
+        async saveData(_, {dataInput: { Business ,Address, Supplier, Decision_Maker, Telephone_1, Telephone_2, PC, MTC, LLF, MPRN, MPAN, EAC, CED, UploadName, CreatedBy, File_Name } }) {
             // check if data exist
             const oldData =  await Data.findOne({ Business });
 
@@ -27,8 +27,10 @@ module.exports = {
                 MPRN: MPRN,
                 MPAN: MPAN,
                 EAC: EAC,
-                CED: CED
-
+                CED: CED,
+                UploadName: UploadName,
+                File_Name: File_Name,
+                CreatedBy: CreatedBy
             });
             // save data in mongo
             const res = await newData.save();

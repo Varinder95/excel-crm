@@ -79,8 +79,9 @@
 
             <div class="d-flex flex-column p-3">
                 <div v-if="dashboard">
-                <h2 class="text-wrap"> Welcome {{username}}</h2>
-                <p>Select what you need</p>
+                    <h2 class="text-wrap"> Welcome {{username}}</h2>
+                    <p>Select what you need</p>
+                    <recentUploads></recentUploads>
                 </div>
                 <div v-if="uploads">
                 <uploads></uploads>
@@ -100,9 +101,10 @@ import $ from 'jquery'
 import dbData from '~/components/dbData'
 import uploads from '~/components/uploads'
 import dbUsers from '~/components/dbUsers'
+import recentUploads from '~/components/recentUploads'
 
 export default {
-  components:{dbData, uploads, dbUsers},
+  components:{dbData, uploads, dbUsers, recentUploads},
   data() {
     return {
       username: '',

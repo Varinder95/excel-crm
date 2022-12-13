@@ -2,22 +2,22 @@
   {
     "name": "Dashboard",
     "path": "/Dashboard",
-    "component": "/home/sunny/projects/frontend/pages/Dashboard.vue",
+    "component": "/home/sunny/projects/excel-crm/frontend/pages/Dashboard.vue",
     "chunkName": "pages/Dashboard",
-    "_name": "_63335aca"
+    "_name": "_3f34ce31"
   },
   {
     "name": "Dashboard-old",
     "path": "/Dashboard-old",
-    "component": "/home/sunny/projects/frontend/pages/Dashboard-old.vue",
+    "component": "/home/sunny/projects/excel-crm/frontend/pages/Dashboard-old.vue",
     "chunkName": "pages/Dashboard-old",
-    "_name": "_b0d5d0b8"
+    "_name": "_155f00ea"
   },
   {
     "name": "index",
     "path": "/",
-    "component": "/home/sunny/projects/frontend/pages/index.vue",
+    "component": "/home/sunny/projects/excel-crm/frontend/pages/index.vue",
     "chunkName": "pages/index",
-    "_name": "_61dca928"
+    "_name": "_7bf5e80f"
   }
 ]

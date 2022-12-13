@@ -10,6 +10,14 @@ type User {
     token: String
 }
 
+type Uploads {
+    _id: ID!
+    UploadName: String
+    FileName: String!
+    NoOfEntries: String
+    UploadedBy: String
+}
+
 type Data {
     _id: ID!
     Business: String
@@ -30,6 +38,9 @@ type Data {
     MPAN: String
     EAC: String
     CED: String
+    UploadName: String
+    File_Name: String
+    CreatedBy: String
 }
 
 input RegisterInput {
@@ -62,6 +73,16 @@ input DataInput {
     MPAN: String
     EAC: String
     CED: String
+    UploadName: String
+    File_Name: String
+    CreatedBy: String
+}
+
+input UploadsInput {
+    UploadName: String
+    FileName: String!
+    NoOfEntries: String
+    UploadedBy: String
 }
 
 type Query {
@@ -70,11 +91,14 @@ type Query {
     getUsers: [User]
     greeting: String!
     getData: [Data]
+    getUploads: [Uploads]
+    getSingleUpload(FileName: String!): Uploads!
 }
 
 type Mutation {
     registerUser(registerInput: RegisterInput): User
     loginUser(loginInput: LoginInput): User
     saveData(dataInput: DataInput): Data
+    saveUploads(uploadsInput: UploadsInput): Uploads
 }
 `

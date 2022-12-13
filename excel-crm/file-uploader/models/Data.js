@@ -19,6 +19,9 @@ const dataSchema = new Schema({
     MPAN: { type: String },
     EAC: { type: String },
     CED: { type: String },
+},
+{
+  timestamps: true
 });
 
 module.exports = model('Data', dataSchema);

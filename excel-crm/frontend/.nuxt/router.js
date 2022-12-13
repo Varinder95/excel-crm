@@ -4,9 +4,9 @@ import { normalizeURL, decode } from 'ufo'
 import { interopDefault } from './utils'
 import scrollBehavior from './router.scrollBehavior.js'
 
-const _63335aca = () => interopDefault(import('../pages/Dashboard.vue' /* webpackChunkName: "pages/Dashboard" */))
-const _b0d5d0b8 = () => interopDefault(import('../pages/Dashboard-old.vue' /* webpackChunkName: "pages/Dashboard-old" */))
-const _61dca928 = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
+const _3f34ce31 = () => interopDefault(import('../pages/Dashboard.vue' /* webpackChunkName: "pages/Dashboard" */))
+const _155f00ea = () => interopDefault(import('../pages/Dashboard-old.vue' /* webpackChunkName: "pages/Dashboard-old" */))
+const _7bf5e80f = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
 
 const emptyFn = () => {}
 
@@ -21,15 +21,15 @@ export const routerOptions = {
 
   routes: [{
     path: "/Dashboard",
-    component: _63335aca,
+    component: _3f34ce31,
     name: "Dashboard"
   }, {
     path: "/Dashboard-old",
-    component: _b0d5d0b8,
+    component: _155f00ea,
     name: "Dashboard-old"
   }, {
     path: "/",
-    component: _61dca928,
+    component: _7bf5e80f,
     name: "index"
   }],
 
