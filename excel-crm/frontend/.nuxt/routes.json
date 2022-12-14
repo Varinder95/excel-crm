@@ -1,5 +1,12 @@
 [
   {
+    "name": "assignData",
+    "path": "/assignData",
+    "component": "/home/sunny/projects/excel-crm/frontend/pages/assignData.vue",
+    "chunkName": "pages/assignData",
+    "_name": "_c20b8668"
+  },
+  {
     "name": "Dashboard",
     "path": "/Dashboard",
     "component": "/home/sunny/projects/excel-crm/frontend/pages/Dashboard.vue",

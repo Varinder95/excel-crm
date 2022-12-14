@@ -5,6 +5,9 @@ const userSchema = new Schema({
     email: { type: String, unique: true },
     password: { type: String },
     token: { type: String }
+},
+{
+  timestamps: true
 });
 
 module.exports = model('User', userSchema);

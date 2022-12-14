@@ -20,7 +20,7 @@ const dataSchema = new Schema({
     EAC: { type: String },
     CED: { type: String },
     UploadName: { type: String },
-    File_Name: { type: String },
+    FileName: { type: String },
     CreatedBy: { type: String },
 },
 {

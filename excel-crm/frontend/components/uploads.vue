@@ -6,10 +6,13 @@
       </div>
       <div v-if="dataUploaded" class="d-block mt-4">
         <h4>Data succesfully saved in mongo db database.</h4>
+        <div class="m-4">
+          <nuxt-link to="/Dashboard"><b-button block variant="primary" size="lg" class="m-4" @click="toDash">Go to Dashboard</b-button></nuxt-link>
+        </div> 
       </div>
       <div v-else class="d-block mt-4">
         <h4>Do you want to save data in mongo db database.</h4>
-        <div class="pt-4">
+        <div class="m-4">
             <b-button block variant="outline-primary" size="lg" class="m-4" @click="submitData">Upload data</b-button>
         </div> 
       </div>
@@ -20,8 +23,8 @@
       </div>
       <div class="d-flex mt-4">
         <div class="pt-4">
-          <input type="text" v-model="uploadName" name="uploadName" class="mx-4 w-100" placeholder="Upload name *" >
-          <input type="file" name="uploadfile" class="mx-4" accept='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel' @change="uploadFile" ref="file">
+          <input type="text" v-model="uploadName" name="uploadName" class="m-4 form-control form-control-md" placeholder="Upload name *" >
+          <input type="file" name="uploadfile" class="m-4 form-control form-control-lg" accept='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel' @change="uploadFile" ref="file">
           <b-button block variant="outline-primary" size="lg" class="m-4" @click="submitFile">Upload</b-button>
         </div> 
       </div>
@@ -90,7 +93,7 @@ export default{
           'CED',
           { key: 'UploadName', label: 'Upload Name' },
           { key: 'CreatedBy', label: 'Created By' }, 
-          { key: 'File_Name', label: 'File_Name' }, 
+          { key: 'FileName', label: 'FileName' }, 
   
         ],
         uploadName: '',
@@ -134,7 +137,7 @@ export default{
           receivedData[i] = Object.assign(receivedData[i], data2);
         }
         this.uploadData = receivedData;
-        this.fileName = receivedData[0].File_Name;
+        this.fileName = receivedData[0].FileName;
         console.log(this.uploadData);
         this.fileUploaded = true;
       });
@@ -156,7 +159,7 @@ export default{
     },
     ChangeNoRows() {
       this.perPage = this.NoOfRows
-    } 
+    }
   }
 }
 </script>

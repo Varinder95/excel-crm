@@ -38,7 +38,7 @@ app.get('/', (req, res) => {
 // Upload excel file and 
 app.post('/uploadfile', upload.single("uploadfile"), (req, res) =>{
     const fileData = importExcelData2MongoDB(__dirname + '/public/uploads/' + req.file.filename);
-    const data2 = {File_Name:req.file.filename};
+    const data2 = {FileName:req.file.filename};
     for (let i = 0; i < fileData.length; i++) {
         fileData[i] = Object.assign(fileData[i], data2);
     }

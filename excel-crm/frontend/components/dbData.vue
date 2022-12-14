@@ -62,7 +62,8 @@ query GetData {
     CED
     UploadName
     CreatedBy
-    File_Name
+    FileName
+    createdAt
   }
 }
 `;
@@ -93,7 +94,8 @@ export default {
           'CED',
           { key: 'UploadName', label: 'Upload Name' },
           { key: 'CreatedBy', label: 'Created By' }, 
-          { key: 'File_Name', label: 'File_Name' }, 
+          { key: 'FileName', label: 'File Name' }, 
+          { key: 'createdAt', label: 'Created On' }, 
   
         ],
         getData:'',
@@ -109,15 +111,9 @@ export default {
         },
     },
     methods:{
-      saveTableData() {
-        return this.getData
-      },
       ChangeNoRows() {
         this.perPage = this.NoOfRows
       }
-    },
-    mounted() {
-      this.tableData = this.saveTableData()
     },
     computed: {
       rows() {

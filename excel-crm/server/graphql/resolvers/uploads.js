@@ -39,7 +39,7 @@ module.exports = {
                 throw new Error("Uploads Doesn't Exist")
             }
             else {
-                return user
+                return uploads
             }
         }
     },

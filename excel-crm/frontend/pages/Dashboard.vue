@@ -114,7 +114,7 @@ export default {
       dbData: false,
     }
   },
-  mounted() {
+  beforeMount() {
     this.username = this.storage();
   },
   methods:{

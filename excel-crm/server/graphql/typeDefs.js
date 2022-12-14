@@ -8,6 +8,7 @@ type User {
     email: String!
     password: String
     token: String
+    createdAt: String
 }
 
 type Uploads {
@@ -16,6 +17,7 @@ type Uploads {
     FileName: String!
     NoOfEntries: String
     UploadedBy: String
+    createdAt: String
 }
 
 type Data {
@@ -39,8 +41,9 @@ type Data {
     EAC: String
     CED: String
     UploadName: String
-    File_Name: String
+    FileName: String
     CreatedBy: String
+    createdAt: String
 }
 
 input RegisterInput {
@@ -74,8 +77,9 @@ input DataInput {
     EAC: String
     CED: String
     UploadName: String
-    File_Name: String
+    FileName: String
     CreatedBy: String
+    createdAt: String
 }
 
 input UploadsInput {
@@ -91,6 +95,7 @@ type Query {
     getUsers: [User]
     greeting: String!
     getData: [Data]
+    DataByFilename(FileName: String!): [Data]
     getUploads: [Uploads]
     getSingleUpload(FileName: String!): Uploads!
 }

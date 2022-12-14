@@ -19,6 +19,9 @@ const dataSchema = new Schema({
     MPAN: { type: String },
     EAC: { type: String },
     CED: { type: String },
+    UploadName: { type: String },
+    FileName: { type: String },
+    CreatedBy: { type: String },
 },
 {
   timestamps: true
