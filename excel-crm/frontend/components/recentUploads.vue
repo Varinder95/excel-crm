@@ -1,11 +1,11 @@
 <template>
-    <div class="p-3">
-      <div class="d-block m-4 w-100 border-bottom border-primary">
+    <div class="md:p-3">
+      <div class="d-block my-4 md:m-4 w-100 border-bottom border-primary">
         <h2 class="text-wrap">Recent Uploads</h2>
       </div>
       <div v-if="uploadedData" class="d-flex w-100 flex-wrap">
         <b-card-group columns>
-          <b-card title-tag="title" header-tag="header" footer-tag="footer"  v-for="data in getUploads" :key="data">
+          <b-card title-tag="title" header-tag="header" footer-tag="footer"  v-for="data in getUploads" :key="data.FileName">
             <template #header>
               <h6 class="mb-0"><span class="font-weight-bold">File Name :</span> {{data.FileName}}</h6>
             </template>
@@ -20,7 +20,7 @@
         </b-card-group>
       </div>
       <div v-else class="d-block w-100">
-        <div class="m-4 w-100 d-flex">
+        <div class="mx-auto w-100 d-flex">
           <div class="alert alert-danger w-100" role="alert">
             No Data Available
           </div>
@@ -48,7 +48,8 @@ export default {
   data() {
     return {
       uploadedData: false,
-      getUploads : ''
+      getUploads : '',
+      loading: 0,
     }
   },
   methods: {
@@ -74,10 +75,14 @@ export default {
   beforeMount() {
     this.uploadRows();
   },
+  mounted() {
+    this.uploadRows();
+  },
   apollo: {
     getUploads: {
       query: getUploads,
       prefetch: true,
+      loadingKey: 'loading',
     },
   },
 }

@@ -105,11 +105,11 @@ export default {
             })
             .then((response) => {
             // save user token to localstorage
-                this.userData = response.data.loginUser
-                console.log(response.data.loginUser)
-                localStorage.setItem('token', response.data.loginUser.token)
-                localStorage.setItem('UserName', response.data.loginUser.name)
-                localStorage.setItem('Email', response.data.loginUser.email)
+                this.userData = response.data.registerUser
+                console.log(response.data.registerUser)
+                localStorage.setItem('token', response.data.registerUser.token)
+                localStorage.setItem('UserName', response.data.registerUser.name)
+                localStorage.setItem('Email', response.data.registerUser.email)
                 this.$router.replace('/dashboard')
                 
             })

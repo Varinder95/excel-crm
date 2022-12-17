@@ -6,12 +6,12 @@
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <div class="container-fluid">
 
-                    <nuxt-link to="/Dashboard" id="sidebarCollapse" class="btn btn-primary">
+                    <nuxt-link to="/Dashboard" class="btn btn-primary">
                         <i class="fas fa-arrow-left"></i>
                         <span>Go Back</span>
                     </nuxt-link>
 
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <div class="d-flex justify-content-end">
                         <ul class="nav navbar-nav ml-auto">
                             <li class="nav-item">
                                 <a class="nav-link" @click="logOut">Log Out</a>
@@ -21,12 +21,12 @@
                 </div>
             </nav>
 
-            <div class="d-flex flex-column p-3">
+            <div class="d-flex flex-column p-1 md:p-3">
                 <div>
-                    <div class="d-flex mx-4 border-bottom border-primary">
+                    <div class="d-flex md:mx-4 border-bottom border-primary">
                       <h2 class="text-wrap">File Data Listing</h2>
                     </div>
-                    <div class="d-flex m-4">
+                    <div class="d-flex my-4 md:m-4">
                         <div class="d-block w-100">
                             <b-card title-tag="title" header-tag="header" footer-tag="footer">
                               <template #header>
@@ -41,7 +41,34 @@
                             </b-card>
                         </div>
                     </div>
-                    <button type="button" id="sidebarCollapse" class="m-4 btn btn-primary" @click="fetchFileData">
+                    <div class="d-flex justify-start">
+                        <div class="w-100 md:m-4">
+                            <div class="d-flex w-100 justify-content-start">
+                                <p class="mt-3 mr-4">Select User to begin : </p>
+                            </div>
+                            <div class="d-block w-100">
+                                <select placeholder="User" v-model="userEmail" class="mt-3 form-control form-control-lg" id="RowCount" @change="fetchUser">
+                                    <option v-for="data in getUsers" :key="data.email" :value="data.email"> {{data.email}}</option>
+                                </select>
+                            </div>
+                            <div v-if="fetchedUserData" class="d-flex flex-wrap mt-5 justify-content-center">
+                                <div class="d-flex flex-wrap md:d-block w-100 md:w-50">
+                                    <p class="w-100 d-flex md:d-block mb-4"><span class="font-weight-bold">User Name :</span> {{userData.name}}</p>
+                                    <p class="w-100 d-flex md:d-block mb-4"><span class="font-weight-bold">User ID :</span> {{userData._id}}</p>
+                                </div>
+                                <div class="d-flex flex-wrap md:d-block w-100 md:w-50">
+                                    <p class="w-100 d-flex md:d-block mb-4"><span class="font-weight-bold">User Email :</span> {{userData.email}}</p>
+                                </div>
+                                <div class="d-block w-100 justify-content-center">
+                                    <button type="button" class="m-4 btn btn-primary" @click="fetchFileData">
+                                        <i class="fas fa-arrow-right"></i>
+                                        <span>Assign to {{userData.name}}</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" class="m-4 btn btn-primary" @click="fetchFileData">
                         <i class="fas fa-arrow-down"></i>
                         <span>Fetch File Data</span>
                     </button>
@@ -88,12 +115,27 @@ import dbUsers from '~/components/dbUsers'
 import recentUploads from '~/components/recentUploads'
 import gql from 'graphql-tag'
 
+const getUser = gql`
+  
+query GetUsers {
+  getUsers {
+    name
+    email
+  }
+}
+`;
+
 export default {
   components:{dbData, uploads, dbUsers, recentUploads},
   data() {
     return {
       fileDetails: '',
       fetchedData: false,
+      fetchedUserData: false,
+      getUser: [],
+      userData: '',
+      userEmail: '',
+      loading: 0,
       fields: [
           // A virtual column that doesn't exist in items
           'index', 
@@ -124,7 +166,8 @@ export default {
         fileData: '',
         NoOfRows: '',
         perPage: 10,
-        currentPage: 1
+        currentPage: 1,
+        fetchError: null
     }
   },
   beforeMount() {
@@ -191,11 +234,34 @@ export default {
             // save user token to localstorage
                 this.fileData = response.data
                 this.fetchedData = true
-                console.log(response.data)
                 
             })
             } catch (e) {
-            this.signInError = e
+            this.fetchError = e
+            console.error(e)
+            }
+        },
+    async fetchUser () {
+        try {
+            await this.$apollo.query({
+                query: gql`
+                    query GetUser($email: String!) {
+                        getUser(email: $email) {
+                            _id
+                            name
+                            email
+                        }
+                    }
+                `,
+                variables: { email : this.userEmail }
+            })
+            .then((response) => {
+                this.userData = response.data.getUser
+                this.fetchedUserData = true
+                
+            })
+            } catch (e) {
+            this.fetchUserError = e
             console.error(e)
             }
         },
@@ -204,7 +270,14 @@ export default {
     rows() {
       return this.fileData.length
     }
-  }
+  },
+    apollo: {
+        getUsers: {
+            query: getUser,
+            prefetch: true,
+            loadingKey: 'loading',
+        },
+    }
 }
 </script>
 <style scoped>

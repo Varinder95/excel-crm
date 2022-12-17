@@ -1,31 +1,31 @@
 <template>
-  <div class="d-flex flex-column p-3">
+  <div class="d-flex flex-column md:p-3">
     <div v-if="fileUploaded">
       <div class="d-flex mx-4 border-bottom border-primary">
         <h2 class="text-wrap">File Uploaded Succesfully</h2>
       </div>
       <div v-if="dataUploaded" class="d-block mt-4">
         <h4>Data succesfully saved in mongo db database.</h4>
-        <div class="m-4">
+        <div class="my-4 md:m-4">
           <nuxt-link to="/Dashboard"><b-button block variant="primary" size="lg" class="m-4" @click="toDash">Go to Dashboard</b-button></nuxt-link>
         </div> 
       </div>
       <div v-else class="d-block mt-4">
         <h4>Do you want to save data in mongo db database.</h4>
-        <div class="m-4">
+        <div class="my-4 md:m-4">
             <b-button block variant="outline-primary" size="lg" class="m-4" @click="submitData">Upload data</b-button>
         </div> 
       </div>
     </div>
     <div v-else>
-      <div class="d-flex mx-4 border-bottom border-primary">
+      <div class="d-flex md:mx-4 border-bottom border-primary">
         <h2 class="text-wrap">Upload Excel</h2>
       </div>
       <div class="d-flex mt-4">
         <div class="pt-4">
-          <input type="text" v-model="uploadName" name="uploadName" class="m-4 form-control form-control-md" placeholder="Upload name *" >
-          <input type="file" name="uploadfile" class="m-4 form-control form-control-lg" accept='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel' @change="uploadFile" ref="file">
-          <b-button block variant="outline-primary" size="lg" class="m-4" @click="submitFile">Upload</b-button>
+          <input type="text" v-model="uploadName" name="uploadName" class="my-4 md:m-4 form-control form-control-md" placeholder="Upload name *" >
+          <input type="file" name="uploadfile" class="my-4 md:m-4 form-control form-control-lg" accept='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel' @change="uploadFile" ref="file">
+          <b-button block variant="outline-primary" size="lg" class="my-4 md:m-4" @click="submitFile">Upload</b-button>
         </div> 
       </div>
     </div>
